@@ -2,7 +2,6 @@
  * Gestión del mapa y visualización de proyectos inmobiliarios usando Leaflet
  */
 
-// Configuraciones iniciales del mapa
 const mapConfig = {
     center: [-12.10, -77.03], // Centro aproximado de Lima
     zoom: 13,
@@ -10,7 +9,7 @@ const mapConfig = {
     maxZoom: 18
 };
 
-// Clase para gestionar el mapa
+
 class PropertyMap {
     constructor() {
         this.map = null;
@@ -46,12 +45,12 @@ class PropertyMap {
     }
 
     /**
-     * Inicializa el mapa y los datos de proyectos
-     * @param {string} mapElementId - ID del elemento HTML donde se mostrará el mapa
-     * @param {Array} projects - Arreglo de proyectos inmobiliarios
+    
+     * @param {string} mapElementId 
+     * @param {Array} projects 
      */
     initialize(mapElementId, projects) {
-        // Inicializar el mapa
+        
         this.map = L.map(mapElementId, {
             center: mapConfig.center,
             zoom: mapConfig.zoom,
@@ -59,32 +58,32 @@ class PropertyMap {
             maxZoom: mapConfig.maxZoom
         });
 
-        // Agregar el mapa base (tiles)
+        
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(this.map);
 
-        // Configurar coordenadas para el quadtree (convertir latitud/longitud a coordenadas x,y para el quadtree)
+       
         const points = projects.map(project => ({
             ...project,
             x: project.lng,
             y: project.lat
         }));
 
-        // Encontrar los límites para el quadtree
+      
         const bounds = this.calculateBounds(points);
         
         // Crear el quadtree
         const boundary = new Boundary(
             (bounds.maxX + bounds.minX) / 2,
             (bounds.maxY + bounds.minY) / 2,
-            (bounds.maxX - bounds.minX) * 1.1, // Agregar un margen del 10%
+            (bounds.maxX - bounds.minX) * 1.1, 
             (bounds.maxY - bounds.minY) * 1.1
         );
         
         this.quadtree = new Quadtree(boundary, 4, 10);
         
-        // Insertar todos los puntos en el quadtree
+       
         points.forEach(point => {
             this.quadtree.insert(point);
         });

@@ -241,4 +241,71 @@ class Quadtree {
 
 // Exportar las clases para su uso en otros archivos
 window.Boundary = Boundary;
-window.Quadtree = Quadtree; 
+window.Quadtree = Quadtree;
+
+// Ejemplo práctico para demostrar
+puntos_demo = [
+    {"x": -77.0323, "y": -12.0964, "nombre": "Torre Bicentenario"},
+    {"x": -77.0412, "y": -12.1214, "nombre": "Residencial Parque del Mar"},
+    {"x": -77.0359, "y": -12.0825, "nombre": "Torres Lince View"},
+    {"x": -77.0223, "y": -12.1490, "nombre": "Barranco Arte Hub"},
+    {"x": -77.0507, "y": -12.0914, "nombre": "Edificio Green Office"}
+]
+
+// Mostrar paso a paso:
+quadtree = Quadtree(boundary=Boundary(-77.03, -12.10, 0.5, 0.5))
+for punto in puntos_demo:
+    print(f"Insertando: {punto['nombre']}")
+    quadtree.insert(punto)
+    # Aquí mostrarías el estado del árbol después de cada inserción 
+
+// Ejemplo de búsqueda por área
+area_busqueda = Boundary(
+    x=-77.0323,  # Centro de San Isidro
+    y=-12.0964,
+    width=0.1,   # Aproximadamente 1km
+    height=0.1
+)
+
+proyectos_encontrados = quadtree.query(area_busqueda)
+print("Proyectos encontrados en el área:")
+for proyecto in proyectos_encontrados:
+    print(f"- {proyecto['nombre']}") 
+
+// Ejemplo de eliminación
+proyecto_a_eliminar = {
+    "x": -77.0323,
+    "y": -12.0964,
+    "nombre": "Torre Bicentenario"
+}
+
+print(f"Eliminando: {proyecto_a_eliminar['nombre']}")
+quadtree.remove(proyecto_a_eliminar) 
+
+// Crear varios proyectos cercanos en Miraflores
+proyectos_miraflores = [
+    {"x": -77.0282, "y": -12.1176, "nombre": "Proyecto 1"},
+    {"x": -77.0283, "y": -12.1177, "nombre": "Proyecto 2"},
+    {"x": -77.0284, "y": -12.1178, "nombre": "Proyecto 3"},
+    # ... más proyectos cercanos
+] 
+
+import time
+
+def medir_tiempo(funcion, *args):
+    inicio = time.time()
+    resultado = funcion(*args)
+    fin = time.time()
+    return fin - inicio, resultado
+
+# Comparar búsqueda en Quadtree vs búsqueda lineal
+tiempo_quadtree, resultados_quadtree = medir_tiempo(
+    quadtree.query, area_busqueda
+)
+
+tiempo_lineal, resultados_lineal = medir_tiempo(
+    busqueda_lineal, todos_los_proyectos, area_busqueda
+)
+
+print(f"Tiempo Quadtree: {tiempo_quadtree:.4f} segundos")
+print(f"Tiempo Búsqueda Lineal: {tiempo_lineal:.4f} segundos") 
