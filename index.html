@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos Inmobiliarios Lima - QuadTree GIS</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Barra lateral -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-building"></i>
+                <h1>Lima Inmobiliaria</h1>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Buscar proyecto...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="filters">
+                <h3>Filtros</h3>
+                <div class="filter-group">
+                    <label for="filter-district">Distrito</label>
+                    <select id="filter-district">
+                        <option value="">Todos</option>
+                        <option value="miraflores">Miraflores</option>
+                        <option value="sanisidro">San Isidro</option>
+                        <option value="barranco">Barranco</option>
+                        <option value="surco">Surco</option>
+                        <option value="lince">Lince</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-type">Tipo de Proyecto</label>
+                    <select id="filter-type">
+                        <option value="">Todos</option>
+                        <option value="residencial">Residencial</option>
+                        <option value="comercial">Comercial</option>
+                        <option value="mixto">Uso Mixto</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-status">Estado</label>
+                    <select id="filter-status">
+                        <option value="">Todos</option>
+                        <option value="construccion">En Construcción</option>
+                        <option value="finalizado">Finalizado</option>
+                        <option value="planos">En Planos</option>
+                    </select>
+                </div>
+                <button id="apply-filters">Aplicar Filtros</button>
+            </div>
+            
+            <div class="project-list">
+                <h3>Proyectos Encontrados</h3>
+                <ul id="projects"></ul>
+            </div>
+            
+            <div class="add-project">
+                <h3>Agregar Proyecto</h3>
+                <button id="show-add-form">Nuevo Proyecto</button>
+            </div>
+        </aside>
+        
+        <!-- Contenido principal (mapa) -->
+        <main class="map-container">
+            <div id="map"></div>
+        </main>
+    </div>
+    
+    <!-- Formulario modal para agregar proyecto -->
+    <div class="modal" id="add-project-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agregar Nuevo Proyecto</h2>
+            <form id="project-form">
+                <div class="form-group">
+                    <label for="project-name">Nombre del Proyecto</label>
+                    <input type="text" id="project-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-district">Distrito</label>
+                    <select id="project-district" required>
+                        <option value="">Seleccionar Distrito</option>
+                        <option value="miraflores">Miraflores</option>
+                        <option value="sanisidro">San Isidro</option>
+                        <option value="barranco">Barranco</option>
+                        <option value="surco">Surco</option>
+                        <option value="lince">Lince</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="project-type">Tipo de Proyecto</label>
+                    <select id="project-type" required>
+                        <option value="">Seleccionar Tipo</option>
+                        <option value="residencial">Residencial</option>
+                        <option value="comercial">Comercial</option>
+                        <option value="mixto">Uso Mixto</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="project-status">Estado</label>
+                    <select id="project-status" required>
+                        <option value="">Seleccionar Estado</option>
+                        <option value="construccion">En Construcción</option>
+                        <option value="finalizado">Finalizado</option>
+                        <option value="planos">En Planos</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="project-lat">Latitud</label>
+                    <input type="number" id="project-lat" step="0.0000001" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-lng">Longitud</label>
+                    <input type="number" id="project-lng" step="0.0000001" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Descripción</label>
+                    <textarea id="project-description" rows="4" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit">Guardar Proyecto</button>
+                    <button type="button" id="cancel-add">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Panel de información de proyecto -->
+    <div class="project-info-panel" id="project-info">
+        <span class="close-info">&times;</span>
+        <div id="project-details"></div>
+    </div>
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/quadtree.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 

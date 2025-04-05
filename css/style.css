@@ -1,0 +1,399 @@
+:root {
+    --primary-color: #2c6e49;
+    --primary-light: #4c956c;
+    --secondary-color: #ffc857;
+    --dark-color: #2b2d42;
+    --light-color: #f8f9fa;
+    --gray-color: #e9ecef;
+    --danger-color: #d62828;
+    --success-color: #70e000;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark-color);
+    background-color: var(--light-color);
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Barra lateral */
+.sidebar {
+    width: 350px;
+    background-color: white;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.logo i {
+    color: var(--primary-color);
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.logo h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.search-box {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--gray-color);
+    border-radius: 4px 0 0 4px;
+    font-size: 14px;
+}
+
+.search-box button {
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.search-box button:hover {
+    background-color: var(--primary-light);
+}
+
+.filters {
+    margin-bottom: 20px;
+}
+
+.filters h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: var(--dark-color);
+}
+
+.filter-group {
+    margin-bottom: 12px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+.filter-group select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--gray-color);
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--dark-color);
+}
+
+#apply-filters {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--secondary-color);
+    color: var(--dark-color);
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 10px;
+}
+
+#apply-filters:hover {
+    background-color: #ffb627;
+}
+
+.project-list {
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.project-list h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: var(--dark-color);
+}
+
+.project-list ul {
+    list-style: none;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.project-list li {
+    padding: 12px;
+    margin-bottom: 8px;
+    background-color: var(--gray-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.project-list li:hover {
+    background-color: #dee2e6;
+}
+
+.project-list li.selected {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+.add-project h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: var(--dark-color);
+}
+
+#show-add-form {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#show-add-form:hover {
+    background-color: var(--primary-light);
+}
+
+/* Contenedor del mapa */
+.map-container {
+    flex: 1;
+    position: relative;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+/* Modal para agregar proyecto */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    width: 500px;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--gray-color);
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.form-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.form-actions button[type="submit"] {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.form-actions button[type="submit"]:hover {
+    background-color: var(--primary-light);
+}
+
+.form-actions button[type="button"] {
+    background-color: var(--gray-color);
+    color: var(--dark-color);
+}
+
+.form-actions button[type="button"]:hover {
+    background-color: #dee2e6;
+}
+
+/* Panel de información de proyecto */
+.project-info-panel {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 350px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    z-index: 20;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+}
+
+.project-info-panel.show {
+    display: block;
+}
+
+.close-info {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+}
+
+#project-details h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-color);
+}
+
+#project-details p {
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+#project-details .project-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+#project-details .status-construccion {
+    background-color: var(--secondary-color);
+    color: var(--dark-color);
+}
+
+#project-details .status-finalizado {
+    background-color: var(--success-color);
+    color: white;
+}
+
+#project-details .status-planos {
+    background-color: var(--gray-color);
+    color: var(--dark-color);
+}
+
+/* Estilos para marcadores en el mapa */
+.leaflet-marker-icon {
+    transition: transform 0.3s ease;
+}
+
+.leaflet-marker-icon:hover {
+    transform: scale(1.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: 40vh;
+    }
+    
+    .map-container {
+        height: 60vh;
+    }
+    
+    .modal-content {
+        width: 90%;
+    }
+    
+    .project-info-panel {
+        width: 90%;
+        left: 5%;
+        right: 5%;
+    }
+} 
